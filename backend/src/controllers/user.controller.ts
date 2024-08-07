@@ -22,4 +22,21 @@ const registerUser = asyncHandler(async (req: Request, res: Response) => {
     );
 });
 
-export { registerUser };
+const updateUser = asyncHandler(async (req: Request, res: Response) => {
+  const { name, addressLine1, country, city } = req.body;
+  const user = await User.findById(req.userId);
+  if (!user) {
+    throw new ApiError(404, "User not found");
+  }
+  user.name = name;
+  user.addressLine1 = addressLine1;
+  user.country = country;
+  user.city = city;
+  await user.save();
+
+  res
+    .status(200)
+    .json(new ApiResponse(200, user.toObject(), "User updated successfully"));
+});
+
+export { registerUser, updateUser };
