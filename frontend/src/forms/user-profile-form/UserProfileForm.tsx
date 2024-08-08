@@ -8,6 +8,7 @@ import {
   FormField,
   FormItem,
   FormLabel,
+  FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import LoadingButton from "@/components/LoadingButton";
@@ -15,10 +16,10 @@ import { Button } from "@/components/ui/button";
 
 const formSchema = z.object({
   email: z.string().optional(),
-  name: z.string().min(1, "Name is required"),
-  addressLine1: z.string().min(1, "Address is required"),
-  city: z.string().min(1, "City is required"),
-  country: z.string().min(1, "Country is required"),
+  name: z.string().min(1, { message: "Name is required" }),
+  addressLine1: z.string().min(1, { message: "Address is required" }),
+  city: z.string().min(1, { message: "City is required" }),
+  country: z.string().min(1, { message: "Country is required" }),
 });
 
 type UserFormData = z.infer<typeof formSchema>;
@@ -64,8 +65,9 @@ const UserProfileForm = ({ onSave, isLoading }: Props) => {
             <FormItem>
               <FormLabel>Name</FormLabel>
               <FormControl>
-                <Input {...field} disabled className="bg-white" />
+                <Input {...field} className="bg-white" />
               </FormControl>
+              <FormMessage />
             </FormItem>
           )}
         />
@@ -75,11 +77,12 @@ const UserProfileForm = ({ onSave, isLoading }: Props) => {
             control={form.control}
             name="addressLine1"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="flex-1">
                 <FormLabel>Address Line 1</FormLabel>
                 <FormControl>
-                  <Input {...field} disabled className="bg-white" />
+                  <Input {...field} className="bg-white" />
                 </FormControl>
+                <FormMessage />
               </FormItem>
             )}
           />
@@ -87,11 +90,12 @@ const UserProfileForm = ({ onSave, isLoading }: Props) => {
             control={form.control}
             name="city"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="flex-1">
                 <FormLabel>City</FormLabel>
                 <FormControl>
-                  <Input {...field} disabled className="bg-white" />
+                  <Input {...field} className="bg-white" />
                 </FormControl>
+                <FormMessage />
               </FormItem>
             )}
           />
@@ -102,8 +106,9 @@ const UserProfileForm = ({ onSave, isLoading }: Props) => {
               <FormItem>
                 <FormLabel>Country</FormLabel>
                 <FormControl>
-                  <Input {...field} disabled className="bg-white" />
+                  <Input {...field} className="bg-white" />
                 </FormControl>
+                <FormMessage />
               </FormItem>
             )}
           />
