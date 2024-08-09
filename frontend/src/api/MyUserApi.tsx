@@ -27,7 +27,6 @@ export const useGetMyUser = () => {
     error,
   } = useQuery("my-user", getMyUserRequest);
 
-  console.log(currentUser);
   if (error) {
     toast.error(error.toString());
   }
