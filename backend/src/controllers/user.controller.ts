@@ -39,4 +39,13 @@ const updateUser = asyncHandler(async (req: Request, res: Response) => {
     .json(new ApiResponse(200, user.toObject(), "User updated successfully"));
 });
 
-export { registerUser, updateUser };
+const getUser = asyncHandler(async (req: Request, res: Response) => {
+  const currentUser = await User.findById(req.userId);
+  if (!currentUser) {
+    throw new ApiError(404, "User not found");
+  }
+  res.status(200).json(currentUser.toObject());
+  res.json("ok");
+});
+
+export { registerUser, updateUser, getUser };
